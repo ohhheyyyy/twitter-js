@@ -1,10 +1,42 @@
 var http = require('http');
 var fs = require('fs');
+var swig = require('swig');
 
 var express = require( 'express' );
 
 // create an instance of an express application
 var app = express(); 
+
+app.engine('html', swig.renderFile);
+app.set('view engine', 'html');
+app.set('views', __dirname + '/views');
+
+// change to true in production code
+swig.setDefaults({ cache: false });
+
+var locals = {
+    title: 'An Example',
+    people: [
+        { name: 'Gandalf'},
+        { name: 'Frodo' },
+        { name: 'Hermione'}
+    ]
+};
+
+var people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
+
+
+app.use('/views', function(req, res, next){
+  res.render( 'index', {title: 'Hall of Fame', people: people}, function(err, html){
+    res.send(html);
+  });
+});
+
+swig.renderFile(__dirname + '/views/index.html', locals, function (err, output) {
+    console.log(output);
+
+
+});
 
 app.use(function (req, res, next) {
   // fs.appendFile(__dirname + '/iplog.txt', req.ip + '\n', function(err) {
