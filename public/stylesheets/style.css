@@ -3,6 +3,27 @@ body {
     height: 100%;
     /* The html and body elements cannot have any padding or margin. */
 }
+
+p {
+    margin: 0;
+}
+
+.tweetUserName{
+    font-weight: bold;
+}
+
+.tweetUserName:before{
+    content: url("https://s-media-cache-ak0.pinimg.com/favicons/5e85cd41c1377ce769aef7497387507756eb8bc9ef4c21619bbf61ab.png?e3ea9bfcacea35a70954045d9d0857cd");
+}
+
+.tweetText {
+    font-weight: normal;
+}
+
+.separateTweets {
+    margin-bottom: 5px;
+}
+
 /* Wrapper for page content to push down footer */
 #wrap {
     min-height: 100%;

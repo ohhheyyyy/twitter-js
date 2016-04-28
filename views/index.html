@@ -14,8 +14,14 @@
     <div class="col-md-9">
     
       <!-- display tweets here -->
+      <h2>{{title}}</h2>
       {% for tweet in tweets %}
-        <li>{{tweet.text}}</li>
+
+      <div class="separateTweets">
+        <p class="tweetUserName"><a href="/users/{{tweet.name}}">{{tweet.name}}</a></p>
+        <p class="tweetText">{{tweet.text}}</p>
+        <a href="#">Re-Tweet</a>
+        </div>
       {% endfor %}
       
     </div>
