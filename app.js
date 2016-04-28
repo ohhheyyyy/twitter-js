@@ -1,20 +1,27 @@
 // REQUIREMENTS
 var express = require('express');
 var app = express();
+var morgan = require('morgan');
 var swig = require('swig');
-// change to true in production code
-swig.setDefaults({ cache: false });
-var router = express.Router();
-var routes = require('./routes/');
-var tweetBank = require('./tweetBank');
+var routes = require('./routes');
+var fs = require('fs');
+var path = require('path');
+var mime = require('mime');
 
 // MIDDLEWARE
 
-app.engine('html', swig.renderFile);
-app.set('view engine', 'html');
-app.set('views', __dirname + '/views');
+app.set('views', __dirname + '/views'); // where to find views
+app.set('view engine', 'html'); // what file extension do our templates have
+app.engine('html', swig.renderFile); // how to render html templates
+swig.setDefaults({ cache: false }); // change to true in production code
 
+app.use(morgan('dev'));
+
+// typical way to use express static middleware
 app.use(express.static(__dirname + '/public'));
+
+app.use('/', routes);
+
 
 
 // ROUTES
